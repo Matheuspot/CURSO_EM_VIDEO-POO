@@ -8,12 +8,7 @@ public class ContaBanco {
     private float saldo;
     private boolean status;   
     
-    // Métodos personalizados
-    public ContaBanco(){
-        this.saldo = 0.0f;
-        this.status = false;          
-    }
-    
+    // Métodos personalizados    
     public void abrirConta(String tipo){
         
         this.setTipo(tipo);  
@@ -74,6 +69,11 @@ public class ContaBanco {
     }  
     
     // Métodos especiais
+    public ContaBanco(){
+        this.saldo = 0.0f;
+        this.status = false;          
+    }
+    
     public int getNumConta(){
         return this.numConta;
     } 
