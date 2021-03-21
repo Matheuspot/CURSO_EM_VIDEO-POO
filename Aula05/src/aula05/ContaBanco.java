@@ -1,12 +1,14 @@
 package aula05;
 public class ContaBanco {
     
+    // Atributos
     public int numConta;
     protected String tipo;
     private String dono;
     private float saldo;
     private boolean status;   
     
+    // Métodos personalizados
     public ContaBanco(){
         this.saldo = 0.0f;
         this.status = false;          
@@ -71,6 +73,7 @@ public class ContaBanco {
         else System.out.println("Não há uma conta aberta para pagamentos");       
     }  
     
+    // Métodos especiais
     public int getNumConta(){
         return this.numConta;
     } 
