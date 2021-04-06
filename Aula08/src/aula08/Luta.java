@@ -1,50 +1,103 @@
 package aula08;
 
-public class Luta {
+import java.util.Random;
+
+public class Luta {   
 
     // Atributos
-    private String desafiado;
-    private String desafiante;
+    private Lutador desafiado;
+    private Lutador desafiante;
     private int rounds;
     private boolean aprovada;
 
     // Métodos especiais
 
-    Luta(){
-        this.setDesafiado(this.desafiado);
-        this.setDesafiante(this.desafiante);
-        this.setRounds(this.rounds);
+    public Lutador getDesafiado() {
+        return desafiado;
     }
 
-    private String getDesafiado(){
-        return this.desafiado;
-    }
-
-    private void setDesafiado(String desafiado){
+    public void setDesafiado(Lutador desafiado) {
         this.desafiado = desafiado;
     }
 
-    private String getDesafiante(){
-        return this.desafiante;
+    public Lutador getDesafiante() {
+        return desafiante;
     }
 
-    private void setDesafiante(String desafiante){
+    public void setDesafiante(Lutador desafiante) {
         this.desafiante = desafiante;
     }
 
-    private int getRounds(){
-        return this.rounds;
+    public int getRounds() {
+        return rounds;
     }
 
-    private void setRounds(Stirng rnd){
-        this.rounds = rnd;
+    public void setRounds(int rounds) {
+        this.rounds = rounds;
     }
 
-    private boolean getAprovada(){
-        return this.aprovada;
+    public boolean getAprovada() {
+        return aprovada;
     }
 
-    private void setAprovada(boolean apv){
-        this.aprovada = apv;
+    public void setAprovada(boolean aprovada) {
+        this.aprovada = aprovada;
+    }
+    
+    
+    // Métodos públicos
+    void marcarLuta(Lutador l1, Lutador l2){
+        
+        if(l1.getCategoria().equals(l2.getCategoria()) && l1 != l2){
+            
+            this.setAprovada(true);
+            this.setDesafiado(l1);
+            this.setDesafiante(l2);
+        }
+        else {
+           this.setAprovada(false);
+           this.setDesafiado(null);
+           this.setDesafiante(null);
+        }
+    }
+    
+    void lutar(){
+        if (this.getAprovada()){
+            System.out.println("### DESAFIADO ###");
+            this.getDesafiado().apresentar();
+            System.out.println("### DESAFIANTE ###");
+            this.getDesafiante().apresentar();
+            
+            Random aleatorio = new Random();
+            int vencedor = aleatorio.nextInt(3);
+            
+            System.out.println("====== RESULTADO DA LUTA ======");
+            
+            switch(vencedor){
+                
+                case 0: // Empate
+                    System.out.println("Empatou!");
+                    this.getDesafiado().empatarLuta();
+                    this.getDesafiante().empatarLuta();
+                    break;
+                    
+                case 1: // Desafiado vence
+                    System.out.println("O " + this.getDesafiado().getNome() + " ganhou");
+                    this.getDesafiado().ganharLuta();
+                    this.getDesafiante().perderLuta();
+                    break;
+                    
+                case 2: // Desafiante vence
+                    System.out.println("O " + this.getDesafiante().getNome() + " ganhou");
+                    this.getDesafiante().ganharLuta();
+                    this.getDesafiado().perderLuta();
+                    break;
+            }
+            
+             System.out.println("===============================");
+        }
+        else {
+            System.out.println("A luta não pode acontecer");
+        }
     }
 }
