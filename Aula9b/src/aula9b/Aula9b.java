@@ -20,7 +20,9 @@ public class Aula9b {
         lvr[0].avancarPag();
         lvr[0].avancarPag();
         lvr[0].avancarPag();
-        lvr[0].avancarPag();    
+        lvr[0].avancarPag();  
+        lvr[0].folhear(3);
+        lvr[0].avancarPag(); 
         lvr[0].fechar();       
          person[0].fazerAniver();
         lvr[0].detalhes();

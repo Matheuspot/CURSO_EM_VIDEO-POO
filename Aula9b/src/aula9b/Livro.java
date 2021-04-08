@@ -17,7 +17,16 @@ public class Livro implements Publicacao {
         this.setAutor(author);
         this.setTotPaginas(totPg);
         this.setAberto(false);    
+        this.paginaAtual = 0;
     }
+    
+    public int getPaginaAtual(){
+        return this.paginaAtual;
+    }
+    
+    void setPaginaAtual(int paginaAtual){
+        this.paginaAtual = paginaAtual;
+    }   
     
     public String getTitulo() {
         return titulo;
@@ -66,7 +75,7 @@ public class Livro implements Publicacao {
         System.out.println("Título do Livro: "          + this.getTitulo());
         System.out.println("Autor do Livro: "           + this.getAutor());
         System.out.println("Qtd. de Páginas: "          + this.getTotPaginas());
-        System.out.println(this.getLeitor().getNome()   + ", leitor com " + this.getLeitor().getIdade() 
+        System.out.println(this.getLeitor().getNome()   + ", leitor de sexo " + this.getLeitor().getSexo() + " com " + this.getLeitor().getIdade() 
                                                         + " anos de idade está lendo o livro \"" 
                                                         + this.getTitulo() +"\"");
         System.out.println("==========================================");
@@ -99,10 +108,10 @@ public class Livro implements Publicacao {
         if (this.getAberto()){
             
             this.setAberto(false);
-            this.paginaAtual = 0;
+            this.setPaginaAtual(0);
             
             System.out.println("\n====== Livro fechado! =====");
-            System.out.println("Você está na página " + this.paginaAtual + "/" + this.getTotPaginas());
+            System.out.println("Você está na página " + this.getPaginaAtual() + "/" + this.getTotPaginas());
             System.out.println("==========================================\n");
         }
         else {
@@ -111,19 +120,30 @@ public class Livro implements Publicacao {
     }
 
     @Override
-    public void folhear() {     
-        if (this.getAberto()){
-            System.out.println("Você está na página " + this.paginaAtual + "/" + this.getTotPaginas());
-        }       
+    public void folhear(int paginaAtual) {     
+        if (this.getAberto()){            
+            if (paginaAtual > 0 && paginaAtual < this.getTotPaginas()){
+                this.setPaginaAtual(paginaAtual);
+                System.out.println("\n========  Folhando... ========");
+                System.out.println("Foi avançado diretamente para a página " + this.getPaginaAtual() + "/" + this.getTotPaginas());
+            }
+            else if (paginaAtual <= 0){
+                System.out.println("Números iguais ou menores que zero não são permitidos");
+            }
+            else 
+                System.out.println("O número " + paginaAtual + " inserido é maior que o número total de páginas " + this.getTotPaginas());
+        }
+        else    
+            System.out.println("O livro precisa estar aberto para ser folheado.");
     }
 
     @Override
     public void avancarPag() {        
         if (this.getAberto()){
-            if (this.paginaAtual < this.getTotPaginas()){
-                this.paginaAtual++;
+            if (this.getPaginaAtual() < this.getTotPaginas()){
+                this.setPaginaAtual(this.getPaginaAtual() + 1);
                 System.out.println("\n====== Foi avançada uma página ======");
-                this.folhear();   
+                System.out.println("Você está na página " + this.getPaginaAtual() + "/" + this.getTotPaginas()); 
             } 
             else {
                 System.out.println("\nVocê está na última página!\n");
@@ -137,10 +157,10 @@ public class Livro implements Publicacao {
     @Override
     public void voltarPag() {
         if (this.getAberto()){
-            if (this.paginaAtual > 1){
-                this.paginaAtual--;
+            if (this.getPaginaAtual() > 1){
+                this.setPaginaAtual(this.getPaginaAtual() - 1);
                 System.out.println("\n====== Foi voltada uma página ======");
-                this.folhear();   
+                System.out.println("Você está na página " + this.getPaginaAtual() + "/" + this.getTotPaginas());  
             } 
             else {
                 System.out.println("\nVocê está primeira página\n");

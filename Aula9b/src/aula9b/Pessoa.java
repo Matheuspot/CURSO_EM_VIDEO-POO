@@ -40,7 +40,7 @@ public class Pessoa {
     
     // Métodos especiais    
     void fazerAniver(){
-        this.idade++;
+        this.setIdade(this.getIdade() + 1);
     } 
     
 }
